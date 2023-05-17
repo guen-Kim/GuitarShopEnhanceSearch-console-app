@@ -1,9 +1,11 @@
 package guitarShop2.model;
 
-import guitarShop2.instrument_enum.*;
+import guitarShop2.instrument_enum.Builder;
+import guitarShop2.instrument_enum.Type;
+import guitarShop2.instrument_enum.Wood;
 
 // Just as Guitar extended Instrument, GuitarSpec extends InstrumentSpec.
-public class GuitarSpec extends InstrumentSpec {
+public class GuitarSpec extends InstrumentSpec  implements Comparable{
 	// Only a guitar has a numStrings property
 	// it's not in the Instrument superclass
 	private int numStrings;
@@ -32,12 +34,20 @@ public class GuitarSpec extends InstrumentSpec {
 		if (!super.matches(otherSpec)) // 디폴트 매치
 			return false;
 		
-		// TODO: 추가된 기타 매치
-		if ((this.getNumStrings() != 0 && this.getNumStrings() != otherSpec.getNumStrings()))
+		// TODO: 추가된 기타 매치			
+		if ((this.getNumStrings() != 0 && compareTo(otherSpec) != 0))
 			return false;
 		System.err.println("matches-Yes");
 		return true; // 조건에 맞는 기타 확인
 
+	}
+
+	@Override
+	public int compareTo(Object ob) {
+		GuitarSpec other = (GuitarSpec) ob;
+		if(numStrings < other.numStrings) return -1;
+		else if(numStrings > other.numStrings) return 1;
+		return 0;
 	}
 
 }

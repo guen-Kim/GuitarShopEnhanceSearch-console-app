@@ -44,23 +44,16 @@ public class FindGuiatTester {
 
 	private static void initializeInventory(Inventory inventory) {
 		// 초기 기타
-		// test fender2 m-1 acoustic style1 alder alder
-
 		inventory.addInstrument("1", 1000,
 				new GuitarSpec(Builder.FENDER, "g-1", 6, Type.ACOUSTIC, Wood.ALDER, Wood.ALDER));
-
 		inventory.addInstrument("2", 2000,
 				new GuitarSpec(Builder.FENDER, "g-2", 8, Type.ELECTRIC, Wood.ALDER, Wood.ALDER));
 		inventory.addInstrument("3", 3000,
 				new GuitarSpec(Builder.FENDER, "g-3", 8, Type.ELECTRIC, Wood.ALDER, Wood.ALDER2));
 		inventory.addInstrument("4", 4000,
 				new GuitarSpec(Builder.FENDER2, "g-1", 12, Type.ELECTRIC, Wood.ALDER, Wood.ALDER2));
-
 		inventory.addInstrument("5", 5000,
 				new GuitarSpec(Builder.FENDER2, "g-3", 12, Type.ELECTRIC, Wood.ALDER, Wood.ALDER2));
-
-		inventory.addInstrument("6", 6000,
-				new GuitarSpec(Builder.FENDER2, "g-1", 12, Type.ACOUSTIC, Wood.ALDER, Wood.ALDER));
 		// 초기 만도린
 		inventory.addInstrument("7", 7000,
 				new MandolinSpec(Builder.FENDER2, "m-1", Type.ACOUSTIC, Style.STYLE1, Wood.ALDER, Wood.ALDER));
@@ -70,8 +63,7 @@ public class FindGuiatTester {
 				new MandolinSpec(Builder.FENDER, "m-2", Type.ELECTRIC, Style.STYLE1, Wood.ALDER, Wood.ALDER2));
 		inventory.addInstrument("10", 10000,
 				new MandolinSpec(Builder.FENDER, "m-1", Type.ELECTRIC, Style.STYLE2, Wood.ALDER, Wood.ALDER));
-		inventory.addInstrument("11", 11000,
-				new MandolinSpec(Builder.FENDER, "m-2", Type.ACOUSTIC, Style.STYLE1, Wood.ALDER, Wood.ALDER));
+
 	}
 
 	public static <E extends Enum<E>> Enum matchingEnumFiled(Class<E> enumClass, String input_str) {
@@ -135,13 +127,9 @@ public class FindGuiatTester {
 		if (input_EBuilder == null) {
 			input_EBuilder = Builder.UNKNOW;
 		}
-		System.out.println("input_builder:" +input_builder);
-
 
 		// 모델
 		String input_model = sc.next();
-		System.out.println("input_model:" +input_model);
-
 
 		// 줄수
 		int input_numString = 0;
@@ -151,7 +139,6 @@ public class FindGuiatTester {
 			input_numString = 0;
 			String nextTokens = sc.next(); // try 문에서 에러 발생 시, next() 메소드 발생 위치에서 다음 next() 메소드에서 곧바로 토큰 반환함
 		}
-		System.out.println("input_numString:" +input_numString);
 
 		
 		// 타입	
@@ -160,7 +147,6 @@ public class FindGuiatTester {
 		if (input_EType == null) {
 			input_EType = Type.NUSEPCIFIED;
 		}
-		System.out.println("input_type:" +input_type);
 
 		// 백우드
 		String input_backWood = sc.next();
@@ -168,7 +154,6 @@ public class FindGuiatTester {
 		if (input_EBWood == null) {
 			input_EBWood = Wood.UNKNOW;
 		}
-		System.out.println("input_backWood:" +input_backWood);
 
 
 		// 탑우드
@@ -177,8 +162,6 @@ public class FindGuiatTester {
 		if (input_ETWood == null) {
 			input_ETWood = Wood.UNKNOW;
 		}
-		System.out.println("input_topWood:" +input_topWood);
-
 
 		return new GuitarSpec(input_EBuilder, input_model, input_numString, input_EType, input_EBWood, input_ETWood);
 

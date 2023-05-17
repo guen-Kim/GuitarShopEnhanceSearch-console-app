@@ -81,9 +81,6 @@ public abstract class InstrumentSpec {
 
 		if ( ( this.getType()!=Type.NUSEPCIFIED && this.getType() != otherSpec.getType()) )
 			return false;
-		System.out.println(otherSpec.getType());
-
-		
 		
 		if (( this.getBackWood ()!= Wood.UNKNOW && this.getBackWood() != otherSpec.getBackWood()))
 			return false;
