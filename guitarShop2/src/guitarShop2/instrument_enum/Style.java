@@ -1,6 +1,8 @@
 package guitarShop2.instrument_enum;
 
-public enum Style {
+import java.io.Serializable;
+
+public enum Style implements Serializable{
 	STYLE1, STYLE2, NONSTYLE;
 
 	public String toString() {

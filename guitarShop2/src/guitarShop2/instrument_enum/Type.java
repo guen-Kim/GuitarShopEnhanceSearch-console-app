@@ -1,6 +1,8 @@
 package guitarShop2.instrument_enum;
 
-public enum Type {
+import java.io.Serializable;
+
+public enum Type implements Serializable{
 	ACOUSTIC, ELECTRIC, NUSEPCIFIED;
 
 	public String toString() {

@@ -1,16 +1,21 @@
 package guitarShop2.model;
 
-import guitarShop2.instrument_enum.*;
+import java.io.Serializable;
+
+import guitarShop2.instrument_enum.Builder;
+import guitarShop2.instrument_enum.Type;
+import guitarShop2.instrument_enum.Wood;
 
 //just like instrument, intrumentSpect is abstract and you'll
 // use subclass for each instrument type
-public abstract class InstrumentSpec {
+public abstract class InstrumentSpec implements Serializable{
 
 	private Builder builder;
 	private String model;
 	private Type type;
 	private Wood backWood;
 	private Wood topWood;
+	
 
 //This is similar to our old Guitar constructor
 // except that we've pulled out properties not common to all instruments, like numStrings and style.

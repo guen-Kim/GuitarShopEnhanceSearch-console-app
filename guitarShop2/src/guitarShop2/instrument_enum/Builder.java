@@ -1,6 +1,8 @@
 package guitarShop2.instrument_enum;
 
-public enum Builder { // 제조사
+import java.io.Serializable;
+
+public enum Builder implements Serializable { // 제조사
 	FENDER, FENDER2, UNKNOW;
 
 	public String toString() {

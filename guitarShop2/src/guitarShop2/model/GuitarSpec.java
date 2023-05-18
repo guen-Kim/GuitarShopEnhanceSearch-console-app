@@ -1,11 +1,15 @@
 package guitarShop2.model;
 
+import java.io.Serializable;
+
 import guitarShop2.instrument_enum.Builder;
 import guitarShop2.instrument_enum.Type;
 import guitarShop2.instrument_enum.Wood;
 
 // Just as Guitar extended Instrument, GuitarSpec extends InstrumentSpec.
-public class GuitarSpec extends InstrumentSpec  implements Comparable{
+public class GuitarSpec extends InstrumentSpec  implements Comparable, Serializable{
+	private static final long serialVersionUID = 1L;
+
 	// Only a guitar has a numStrings property
 	// it's not in the Instrument superclass
 	private int numStrings;

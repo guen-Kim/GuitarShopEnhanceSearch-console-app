@@ -10,61 +10,77 @@ import guitarShop2.instrument_enum.*;
 
 public class FindGuiatTester {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		Inventory inventory = new Inventory();
-		initializeInventory(inventory);
+		// inventory.origin();
+
+		inventory.loadInstrumentData();
 
 		while (true) {
 			System.out.println("-------------------악기 샵 메인 페이지-------------------------");
-			System.out.println("\t검색할 악기의 이름을 입력해주세요.");
-			System.out.println("-------------------어떤 악기를 검색하나요?-------------------------");
+			System.out.println("\t악기의 이름을 입력해주세요. 종료를 원한다면 '종료'를 입력해주세요.");
+
 			String input_instrumentName = sc.next().toLowerCase();
 			switch (input_instrumentName) {
+
 			case "mandolin":
 			case "만도린":
-				System.out.println("---------------mandolin의 Spec을 입력해주세요.-------------------------");
-				System.out.println("제조사, 모델, 타입, 스타일, 뒷면우드, 윗면우드 순으로 입력해주세요.");
-				MandolinSpec mandolinSpec = inputMandolinSpec(sc);
-				matchingInstrument(mandolinSpec, inventory);
+				System.out.println("만도린 메뉴입니다. '검색 'or '추가'");
+
+				String input_menu_m = sc.next().toLowerCase();
+				switch (input_menu_m) {
+				case "추가":
+					System.out.println("--------추가할 mandolin의 Spec을 입력해주세요.-------------------------");
+					System.out.println("serialNumber, 가격, 제조사, 모델, 타입, 스타일, 뒷면우드, 윗면우드 순으로 입력해주세요.");
+					String serialNumber =sc.next();
+					double price = sc.nextDouble();
+					MandolinSpec mandolinSpec_ = inputMandolinSpec(sc);
+					inventory.addInstrument(serialNumber, price, mandolinSpec_);
+					break;
+				case "검색":
+					System.out.println("--------검색할 mandolin의 Spec을 입력해주세요.-------------------------");
+					System.out.println("제조사, 모델, 타입, 스타일, 뒷면우드, 윗면우드 순으로 입력해주세요.");
+					MandolinSpec mandolinSpec = inputMandolinSpec(sc);
+					matchingInstrument(mandolinSpec, inventory);
+					break;
+				}
 				break;
 
 			case "guitar":
 			case "기타":
-				System.out.println("---------------guitar의 Spec을 입력해주세요.-------------------------");
-				System.out.println("제조사, 모델, 줄수, 타입, 백,탑  순으로 입력해주세요.");
-				GuitarSpec whatLikes = inputGuitarSpec(sc);
-				matchingInstrument(whatLikes, inventory);
+				System.out.println("기타 메뉴입니다. '검색 'or '추가'");
+
+				String input_menu_g = sc.next().toLowerCase();
+				switch (input_menu_g) {
+				case "추가":
+					System.out.println("---------추가할 guitar의 Spec을 입력해주세요.-------------------------");
+					System.out.println("id, 가격, 제조사, 모델, 줄수, 타입, 백,탑  순으로 입력해주세요.");
+					String serialNumber =sc.next();
+					double price = sc.nextDouble();
+					GuitarSpec guitarSpec_ = inputGuitarSpec(sc);
+					inventory.addInstrument(serialNumber, price, guitarSpec_);
+					break;
+				case "검색":
+					System.out.println("-----------검색할 guitar의 Spec을 입력해주세요.-------------------------");
+					System.out.println("제조사, 모델, 줄수, 타입, 백,탑  순으로 입력해주세요.");
+					GuitarSpec guitarSpec = inputGuitarSpec(sc);
+					matchingInstrument(guitarSpec, inventory);
+					break;
+
+				}
 				break;
+
+			case "종료":
+				inventory.updateInventoryData();
+				return;
 			}
 			System.out.println("---------------------------------------------------------");
 
 		}
-	}
-
-	private static void initializeInventory(Inventory inventory) {
-		// 초기 기타
-		inventory.addInstrument("1", 1000,
-				new GuitarSpec(Builder.FENDER, "g-1", 6, Type.ACOUSTIC, Wood.ALDER, Wood.ALDER));
-		inventory.addInstrument("2", 2000,
-				new GuitarSpec(Builder.FENDER, "g-2", 8, Type.ELECTRIC, Wood.ALDER, Wood.ALDER));
-		inventory.addInstrument("3", 3000,
-				new GuitarSpec(Builder.FENDER, "g-3", 8, Type.ELECTRIC, Wood.ALDER, Wood.ALDER2));
-		inventory.addInstrument("4", 4000,
-				new GuitarSpec(Builder.FENDER2, "g-1", 12, Type.ELECTRIC, Wood.ALDER, Wood.ALDER2));
-		inventory.addInstrument("5", 5000,
-				new GuitarSpec(Builder.FENDER2, "g-3", 12, Type.ELECTRIC, Wood.ALDER, Wood.ALDER2));
-		// 초기 만도린
-		inventory.addInstrument("7", 7000,
-				new MandolinSpec(Builder.FENDER2, "m-1", Type.ACOUSTIC, Style.STYLE1, Wood.ALDER, Wood.ALDER));
-		inventory.addInstrument("8", 8000,
-				new MandolinSpec(Builder.FENDER2, "m-2", Type.ACOUSTIC, Style.STYLE2, Wood.ALDER, Wood.ALDER));
-		inventory.addInstrument("9", 9000,
-				new MandolinSpec(Builder.FENDER, "m-2", Type.ELECTRIC, Style.STYLE1, Wood.ALDER, Wood.ALDER2));
-		inventory.addInstrument("10", 10000,
-				new MandolinSpec(Builder.FENDER, "m-1", Type.ELECTRIC, Style.STYLE2, Wood.ALDER, Wood.ALDER));
 
 	}
+
 
 	public static <E extends Enum<E>> Enum matchingEnumFiled(Class<E> enumClass, String input_str) {
 		for (Enum filed : EnumSet.allOf(enumClass)) {
@@ -120,7 +136,7 @@ public class FindGuiatTester {
 
 	// *순서* 제조사, 모델, 줄수, 타입, 백,탑
 	private static GuitarSpec inputGuitarSpec(Scanner sc) {
-		
+
 		// 제조사
 		String input_builder = sc.next();
 		Builder input_EBuilder = (Builder) matchingEnumFiled(Builder.class, input_builder.toLowerCase());
@@ -140,8 +156,7 @@ public class FindGuiatTester {
 			String nextTokens = sc.next(); // try 문에서 에러 발생 시, next() 메소드 발생 위치에서 다음 next() 메소드에서 곧바로 토큰 반환함
 		}
 
-		
-		// 타입	
+		// 타입
 		String input_type = sc.next();
 		Type input_EType = (Type) matchingEnumFiled(Type.class, input_type.toLowerCase());
 		if (input_EType == null) {
@@ -154,7 +169,6 @@ public class FindGuiatTester {
 		if (input_EBWood == null) {
 			input_EBWood = Wood.UNKNOW;
 		}
-
 
 		// 탑우드
 		String input_topWood = sc.next();

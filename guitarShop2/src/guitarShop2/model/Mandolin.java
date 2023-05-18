@@ -1,6 +1,10 @@
 package guitarShop2.model;
 
-public class Mandolin extends Instrument{
+import java.io.Serializable;
+
+public class Mandolin extends Instrument implements Serializable{
+	private static final long serialVersionUID = 7276593045485561879L;
+
 
 	public Mandolin(String serialNumber, double price, MandolinSpec spec) {
 		super(serialNumber, price, spec);
@@ -22,6 +26,3 @@ public class Mandolin extends Instrument{
 		"]";
 	}
 }
-
-
-// 기타 스펙 알고리즘 고치기 끝

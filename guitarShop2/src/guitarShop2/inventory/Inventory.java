@@ -1,9 +1,18 @@
 package guitarShop2.inventory;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import guitarShop2.instrument_enum.Builder;
+import guitarShop2.instrument_enum.Style;
+import guitarShop2.instrument_enum.Type;
+import guitarShop2.instrument_enum.Wood;
 import guitarShop2.model.Guitar;
 import guitarShop2.model.GuitarSpec;
 import guitarShop2.model.Instrument;
@@ -24,7 +33,6 @@ public class Inventory {
 // create any kind of instrument.	
 	public void addInstrument(String serialNumber, double price, InstrumentSpec spec) {
 		Instrument instrument = null;
-
 		// 입력 받은 스펙에 대하여
 		// GuitarSpec 인스턴스라면 -> Guitar 객체로 저장
 		// MandolinSpec 인스턴스라면 -> Mandolin 객체로 저장
@@ -96,6 +104,101 @@ public class Inventory {
 
 		}
 		return matchingInstruments;
+	}
+
+	// 파일에 저장된 악기 리스트를 불러옵니다.
+	public void loadInstrumentData() throws Exception {
+		// inventory.clear();
+
+		/* 파일 읽기 */
+		// 1.FileInputStream 만들기
+		FileInputStream fileStream = new FileInputStream("InstrumentList.ser");
+		// 2.ObjectInputStream 만들기
+		ObjectInputStream ois = null;
+		try {
+			ois = new ObjectInputStream(fileStream);
+			// 3. 객체 읽기
+			while (true) {
+				Object ob = ois.readObject();
+				if (ob instanceof Guitar) {
+					Guitar guitar = (Guitar) ob;
+					inventory.add(guitar);
+				} else {
+					Mandolin mandolin = (Mandolin) ob;
+					inventory.add(mandolin);
+				}
+			}
+
+		} catch (EOFException e) {
+
+			for (Instrument ie : inventory) {
+				if (ie instanceof Guitar) {
+					Guitar eg = (Guitar) ie;
+					System.out.println(eg);
+				} else {
+					Mandolin em = (Mandolin) ie;
+					System.out.println(em);
+
+				}
+				// 4. ObjectInputStream 닫기
+				ois.close();
+
+			}
+			System.out.println("로딩 끝");
+			System.out.println("저장된 악기 수: "+ inventory.size());
+
+		}
+	}
+
+	// 프로그램이 종료하기 전 수정되었던 inventory 데이터를 최종적으로 파일에 저장합니다.
+	public void updateInventoryData() throws Exception {
+		/* 파일 저장 */
+		// 1. FileOutputStream 만들기
+		FileOutputStream fileOutputStream = new FileOutputStream("InstrumentList.ser");
+		// 2.ObjectOutputStream 만들기
+		ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream);
+
+		//System.out.println(inventory.size());
+		
+		// 3.객체 저장
+		for (Instrument e : inventory) {
+			if (e instanceof Guitar) {
+				oos.writeObject((Guitar) e);
+			} else {
+				oos.writeObject((Mandolin) e);
+			}
+		}
+		// 4. ObjectOutputStream 닫기
+		// oos.close();
+	}
+
+	public void origin() throws Exception {
+
+		// 1. FileOutputStream 만들기
+		FileOutputStream fileOutputStream = new FileOutputStream("InstrumentList.ser");
+		// 2.ObjectOutputStream 만들기
+		ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream);
+		// 3.객체 저장
+		inventory.add(
+				new Guitar("1", 1000, new GuitarSpec(Builder.FENDER, "g-1", 6, Type.ACOUSTIC, Wood.ALDER, Wood.ALDER)));
+		inventory.add(
+				new Guitar("2", 2000, new GuitarSpec(Builder.FENDER, "g-2", 6, Type.ACOUSTIC, Wood.ALDER, Wood.ALDER)));
+		inventory.add(new Mandolin("3", 3000,
+				new MandolinSpec(Builder.FENDER, "g-1", Type.ACOUSTIC, Style.STYLE2, Wood.ALDER, Wood.ALDER)));
+		inventory.add(new Mandolin("4", 4000,
+				new MandolinSpec(Builder.FENDER, "g-2", Type.ACOUSTIC, Style.STYLE1, Wood.ALDER, Wood.ALDER)));
+
+		for (Instrument e : inventory) {
+			if (e instanceof Guitar) {
+				oos.writeObject((Guitar) e);
+			} else {
+				oos.writeObject((Mandolin) e);
+			}
+		}
+		//4.ObjectOutputStream 닫기
+		// oos.close();
+
+
 	}
 
 }

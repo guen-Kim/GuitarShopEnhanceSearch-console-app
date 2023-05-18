@@ -1,10 +1,16 @@
 package guitarShop2.model;
 
-import guitarShop2.instrument_enum.*;
+import guitarShop2.instrument_enum.Builder;
+import guitarShop2.instrument_enum.Style;
+import guitarShop2.instrument_enum.Type;
+import guitarShop2.instrument_enum.Wood;
+
+import java.io.Serializable;
 
 
+public class MandolinSpec extends InstrumentSpec implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-public class MandolinSpec extends InstrumentSpec {
 	
 //You'll need a new enumerated type, Style.
 //Use two enumerated values, ~ and ~
@@ -31,8 +37,7 @@ public class MandolinSpec extends InstrumentSpec {
 		if (!super.matches(otherSpec)) // 디폴트 매치
 			return false;
 		// TODO: 추가된 만도린 매치
-//		if (!(otherSpec instanceof MandolinSpec)) //inventory에 있는 악기가 Madolin이라면
-//			return false;
+
 		MandolinSpec spec = (MandolinSpec) otherSpec;
 		if (style != Style.NONSTYLE && !style.equals(spec.style))
 			return false;

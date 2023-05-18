@@ -1,17 +1,21 @@
 package guitarShop2.model;
 
+import java.io.Serializable;
+
 //Instrument is abstract. 
 //you have to instantiate subclass of 
 // this base class, like Guitar
-public abstract class Instrument {
+public abstract class Instrument implements Serializable {
 
 	private String serialNumber;
 	private double price;
 // We used the aggregation form of association because each Instrument is made up
 //price member virialbes, and an instrumentSpec instance.
 	private InstrumentSpec spec;
+	
 
-	// Most of this is pretty simple, and looks a lot like the old Guitar class we had.
+	// Most of this is pretty simple, and looks a lot like the old Guitar class we
+	// had.
 	public Instrument(String serialNumber, double price, InstrumentSpec spec) {
 		this.serialNumber = serialNumber;
 		this.price = price;

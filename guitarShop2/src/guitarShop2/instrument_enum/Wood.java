@@ -1,6 +1,8 @@
 package guitarShop2.instrument_enum;
 
-public enum Wood {
+import java.io.Serializable;
+
+public enum Wood implements Serializable{
 	ALDER, ALDER2, UNKNOW;
 
 	public String toString() {
